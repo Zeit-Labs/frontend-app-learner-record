@@ -48,7 +48,10 @@ export function initializeMockApp() {
   const authService = configureAuth(MockAuthService, { config: getConfig(), loggingService });
   return { loggingService, i18nService, authService };
 }
-
+jest.mock('@edx/frontend-platform/react/hooks', () => ({
+  ...jest.requireActual('@edx/frontend-platform/react/hooks'),
+  useTrackColorSchemeChoice: jest.fn(),
+}));
 function render(ui, options) {
   // eslint-disable-next-line react/prop-types
   function Wrapper({ children }) {
